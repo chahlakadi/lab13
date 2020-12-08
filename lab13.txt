@@ -1,0 +1,145 @@
+
+Lab13
+
+1. student@ubuntu:~/Desktop/chahla/lab13$ git clone https://github.com/CircuitCo/BeagleBone-Black/
+ le timer0 corsspondant est le 66
+
+2. 
+
+4. après avoir alimenter la carte et brancher le port série on va dans /dev
+student@ubuntu:/dev$ ls
+student@ubuntu:/dev$ ls
+agpgart          lightnvm      port      tty17  tty45      ttyS14   userio
+autofs           log           ppp       tty18  tty46      ttyS15   vcs
+block            loop0         psaux     tty19  tty47      ttyS16   vcs1
+bsg              loop1         ptmx      tty2   tty48      ttyS17   vcs2
+btrfs-control    loop10        pts       tty20  tty49      ttyS18   vcs3
+bus              loop11        random    tty21  tty5       ttyS19   vcs4
+cdrom            loop12        rfkill    tty22  tty50      ttyS2    vcs5
+cdrw             loop13        rtc       tty23  tty51      ttyS20   vcs6
+char             loop14        rtc0      tty24  tty52      ttyS21   vcsa
+console          loop15        sda       tty25  tty53      ttyS22   vcsa1
+core             loop16        sda1      tty26  tty54      ttyS23   vcsa2
+cpu              loop17        serial    tty27  tty55      ttyS24   vcsa3
+cpu_dma_latency  loop18        sg0       tty28  tty56      ttyS25   vcsa4
+cuse             loop19        sg1       tty29  tty57      ttyS26   vcsa5
+disk             loop2         shm       tty3   tty58      ttyS27   vcsa6
+dmmidi           loop3         snapshot  tty30  tty59      ttyS28   vcsu
+dri              loop4         snd       tty31  tty6       ttyS29   vcsu1
+dvd              loop5         sr0       tty32  tty60      ttyS3    vcsu2
+ecryptfs         loop6         stderr    tty33  tty61      ttyS30   vcsu3
+fb0              loop7         stdin     tty34  tty62      ttyS31   vcsu4
+fd               loop8         stdout    tty35  tty63      ttyS4    vcsu5
+full             loop9         tty       tty36  tty7       ttyS5    vcsu6
+fuse             loop-control  tty0      tty37  tty8       ttyS6    vfio
+hidraw0          mapper        tty1      tty38  tty9       ttyS7    vga_arbiter
+hpet             mcelog        tty10     tty39  ttyprintk  ttyS8    vhci
+hugepages        mem           tty11     tty4   ttyS0      ttyS9    vhost-net
+hwrng            midi          tty12     tty40  ttyS1      ttyUSB0  vhost-vsock
+initctl          mqueue        tty13     tty41  ttyS10     udmabuf  vmci
+input            net           tty14     tty42  ttyS11     uhid     vsock
+kmsg             null          tty15     tty43  ttyS12     uinput   zero
+kvm              nvram         tty16     tty44  ttyS13     urandom  zfs
+
+5. student@ubuntu:~/Desktop/chahla/lab13$ sudo apt install picocom
+6. 
+student@ubuntu:~/Desktop/chahla/lab13$ ls -l /dev/ttyUSB0
+crw-rw---- 1 root dialout 188, 0 Dec  8 10:08 /dev/ttyUSB0
+
+student@ubuntu:~/Desktop/chahla/lab13$ sudo adduser $USER dialout
+Adding user `student' to group `dialout' ...
+Adding user student to group dialout
+Done.
+
+7.
+student@ubuntu:~/Desktop/chahla/lab13$ sudo picocom -b 115200 /dev/ttyUSB0
+picocom v2.2
+
+port is        : /dev/ttyUSB0
+flowcontrol    : none
+baudrate is    : 115200
+parity is      : none
+databits are   : 8
+stopbits are   : 1
+escape is      : C-a
+local echo is  : no
+noinit is      : no
+noreset is     : no
+nolock is      : no
+send_cmd is    : sz -vv
+receive_cmd is : rz -vv -E
+imap is        : 
+omap is        : 
+emap is        : crcrlf,delbs,
+
+Type [C-a] [C-h] to see available commands
+
+Terminal ready
+##########################################
+Après avoir booter sur la carte SD 
+
+8. 
+Press SPACE to abort autoboot in 2 seconds
+chahla=> 
+
+9. 
+chahla=> help
+
+chahla=> help saveenv
+
+10. 
+chahla=> env default -f -a
+## Resetting to default environment
+chahla=> saveenv
+Saving Environment to MMC... Writing to redundant MMC(1)... OK
+
+11. 
+chahla=> setenv ipaddr 192.168.0.100
+chahla=> setenv serverip 192.168.0.1
+chahla=> setenv ethaddr 12:34:56:ab:cd:ef 
+chahla=> setenv autostart no
+
+12. 
+chahla=> saveenv 
+Saving Environment to MMC... Writing to MMC(1)... OK
+
+
+13. 
+
+15. 
+student@ubuntu:~$ sudo apt-get install net-tools
+student@ubuntu:~$ ifconfig -a
+
+
+16. 
+
+17.
+student@ubuntu:~$ sudo /etc/init.d/networking restart
+[ ok ] Restarting networking (via systemctl): networking.service.
+
+18. 
+a.student@ubuntu:~$ sudo apt install tftpd-hpa
+b. Pour rebooter on appuie sur switch et on realimente!
+chahla=> tftp 0x81000000 fichiertest.txt
+
+
+chahla=> md 0x81000000
+81000000: 6c6c6548 6874206f 21657265 65480a0a    Hello there!..He
+81000010: 49206572 206d6120 68616843 4b20616c    re I am Chahla K
+81000020: 0a494441 00000000 00000000 00000000    ADI.............
+81000030: 00000000 00000000 00000000 00000000    ................
+81000040: 00000000 00000000 00000000 00000000    ................
+81000050: 00000000 00000000 00000000 00000000    ................
+81000060: 00000000 00000000 00000000 00000000    ................
+81000070: 00000000 00000000 00000000 00000000    ................
+81000080: 00000000 00000000 00000000 00000000    ................
+81000090: 00000000 00000000 00000000 00000000    ................
+810000a0: 00000000 00000000 00000000 00000000    ................
+810000b0: 00000000 00000000 00000000 00000000    ................
+810000c0: 00000000 00000000 00000000 00000000    ................
+810000d0: 00000000 00000000 00000000 00000000    ................
+810000e0: 00000000 00000000 00000000 00000000    ................
+810000f0: 00000000 00000000 00000000 00000000    ................
+
+
+
